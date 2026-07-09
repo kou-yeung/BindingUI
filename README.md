@@ -73,3 +73,39 @@ public sealed class VisibleBinding<TState> : IBinding<TState>
     }
 }
 ```
+
+■ 実演
+
+```c#
+void Start()
+{
+    bindingRoot = new(gameObject);
+
+    bindingRoot.Bind("ValueImage")
+        .ImageColor(v => v.Color)
+        .Visible(v => v.Visible);
+            
+    bindingRoot.Bind("ValueText")
+        .Text(v => v.ValueString);
+
+    bindingRoot.Bind("BTN")
+        .Interactable(v => v.Interactable);
+}
+
+// スライダー変更イベント
+private void OnValueChanged(float value)
+{
+    // Apply 実行すれば反映されます
+    bindingRoot.Apply(new SampleState
+    {
+        ValueString = value.ToString(),
+        Color = new Color(1, 1, 1, value / 10),
+        Visible = value != 0,
+        Interactable = value >= 5
+    });
+}
+```
+
+Start() に上記コードを書くだけで、状態を Apply すれば 複雑の分岐書く必要なくなります
+
+https://github.com/user-attachments/assets/b1d7c8e9-01ba-4210-8674-1a5ad4508699
