@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,27 +13,30 @@ namespace BindingUI
         {
             foreach (var bindingId in root.GetComponentsInChildren<BindingId>(true))
             {
-                nodes.Add(
-                    bindingId.Id,
-                    new BindingNode<TState>(
-                        bindingId.Id,
-                        bindingId.gameObject,
-                        bindings));
+                var node = new BindingNode<TState>(bindingId.Id, bindingId.gameObject, bindings);
+
+                if (nodes.TryAdd(bindingId.Id, node) == false)
+                {
+                    throw new Exception($"Duplicate BindingId '{bindingId.Id}'");
+                }
             }
         }
 
         public BindingNode<TState> Bind(string id)
         {
             if (!nodes.TryGetValue(id, out var node))
+            {
                 throw new KeyNotFoundException($"BindingId not found: {id}");
-
+            }
             return node;
         }
 
         public void Apply(TState state)
         {
             foreach (var binding in bindings)
+            {
                 binding.Apply(state);
+            }
         }
     }
 }
