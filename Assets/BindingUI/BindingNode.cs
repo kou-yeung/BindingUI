@@ -20,7 +20,7 @@ namespace BindingUI
             this.bindings = bindings;
         }
 
-        internal void Add(IBinding<TState> binding)
+        public void Add(IBinding<TState> binding)
         {
             bindings.Add(binding);
         }
