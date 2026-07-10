@@ -1,3 +1,4 @@
+using BindingUI.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,16 @@ namespace BindingUI
 
         public BindingRoot(GameObject root)
         {
+            var rootMarker = BindingUICore.GetInterface<IBindingMarker>(root);
+
             foreach (var bindingId in root.GetComponentsInChildren<BindingId>(true))
             {
+                var ownerMarker = BindingUICore.GetInterfaceInParents<IBindingMarker>(bindingId.gameObject);
+                if (IsOwnedByRoot(rootMarker, ownerMarker) == false)
+                {
+                    continue;
+                }
+
                 var node = new BindingNode<TState>(bindingId.Id, bindingId.gameObject, bindings);
 
                 if (nodes.TryAdd(bindingId.Id, node) == false)
@@ -21,7 +30,14 @@ namespace BindingUI
                 }
             }
         }
-
+        static bool IsOwnedByRoot(IBindingMarker rootMarker, IBindingMarker ownerMarker)
+        {
+            if (ownerMarker == null)
+            {
+                return true;
+            }
+            return ReferenceEquals(rootMarker, ownerMarker);
+        }
         public BindingNode<TState> Bind(string id)
         {
             if (!nodes.TryGetValue(id, out var node))
