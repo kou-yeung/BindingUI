@@ -18,14 +18,16 @@ namespace BindingUI.Core
 
         public static TInterface GetInterfaceInParents<TInterface>(GameObject gameObject) where TInterface : class
         {
-            for (var current = gameObject.transform; current != null; current = current.parent)
+            var current = gameObject.transform.parent;
+
+            while(current != null)
             {
                 var marker = GetInterface<TInterface>(current.gameObject);
-
                 if (marker != null)
                 {
                     return marker;
                 }
+                current = current.parent;
             }
             return null;
         }
