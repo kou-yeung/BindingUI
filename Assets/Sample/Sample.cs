@@ -14,11 +14,9 @@ public class Sample : MonoBehaviour
 
     BindingRoot<SampleState> bindingRoot;
 
-    [SerializeField] BindingIdRegistry bindingIdRegistry;
-
     void Start()
     {
-        bindingRoot = new(bindingIdRegistry);
+        bindingRoot = new(gameObject);
 
         bindingRoot.Bind("ValueImage")
             .ImageColor(v => v.Color)
