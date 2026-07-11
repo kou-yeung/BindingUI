@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BindingUI
@@ -9,6 +10,8 @@ namespace BindingUI
         public GameObject GameObject { get; }
 
         readonly List<IBinding<TState>> bindings;
+
+        Dictionary<Type, Component> cache;
 
         public BindingNode(
             string id,
@@ -27,12 +30,25 @@ namespace BindingUI
 
         public T Get<T>() where T : Component
         {
-            var component = GameObject.GetComponent<T>();
-            if (component == null)
-                throw new MissingComponentException(
-                    $"{Id} does not have component: {typeof(T).Name}");
+            cache ??= new Dictionary<Type, Component>();
 
-            return component;
+            var type = typeof(T);
+
+            if (cache.TryGetValue(type, out var component))
+            {
+                return (T)component;
+            }
+
+            component = GameObject.GetComponent<T>();
+
+            if (component == null)
+            {
+                throw new MissingComponentException($"BindingNode '{Id}' on GameObject '{GameObject.name}' " + $"does not have component '{type.FullName}'.");
+            }
+
+            cache.Add(type, component);
+
+            return (T)component;
         }
     }
 }

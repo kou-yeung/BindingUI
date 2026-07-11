@@ -1,4 +1,3 @@
-using BindingUI.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,43 +6,35 @@ namespace BindingUI
 {
     public sealed class BindingRoot<TState>
     {
+        readonly IBindingNodeResolver resolver;
         readonly Dictionary<string, BindingNode<TState>> nodes = new();
         readonly List<IBinding<TState>> bindings = new();
 
         public BindingRoot(GameObject root)
         {
-            var rootMarker = BindingUICore.GetInterface<IBindingMarker>(root);
-
-            foreach (var bindingId in root.GetComponentsInChildren<BindingId>(true))
-            {
-                var ownerMarker = BindingUICore.GetInterfaceInParents<IBindingMarker>(bindingId.gameObject);
-                if (IsOwnedByRoot(rootMarker, ownerMarker) == false)
-                {
-                    continue;
-                }
-
-                var node = new BindingNode<TState>(bindingId.Id, bindingId.gameObject, bindings);
-
-                if (nodes.TryAdd(bindingId.Id, node) == false)
-                {
-                    throw new Exception($"Duplicate BindingId '{bindingId.Id}'");
-                }
-            }
+            resolver = new HierarchyBindingNodeResolver(root);
         }
-        static bool IsOwnedByRoot(IBindingMarker rootMarker, IBindingMarker ownerMarker)
+
+        public BindingRoot(IBindingNodeResolver bindingNodeResolver)
         {
-            if (ownerMarker == null)
-            {
-                return true;
-            }
-            return ReferenceEquals(rootMarker, ownerMarker);
+            resolver = bindingNodeResolver ?? throw new ArgumentNullException(nameof(bindingNodeResolver));
         }
         public BindingNode<TState> Bind(string id)
         {
-            if (!nodes.TryGetValue(id, out var node))
+            if (nodes.TryGetValue(id, out var cache))
+            {
+                return cache;
+            }
+
+            if (resolver.TryResolve(id, out var target) == false)
             {
                 throw new KeyNotFoundException($"BindingId not found: {id}");
             }
+
+            var node = new BindingNode<TState>(id, target.gameObject, bindings);
+
+            nodes.Add(id, node);
+
             return node;
         }
 
