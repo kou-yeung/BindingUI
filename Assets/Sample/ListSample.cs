@@ -6,7 +6,6 @@ public class ListSample : MonoBehaviour
 {
     BindingRoot<int[]> bindingRoot;
 
-
     void Start()
     {
         bindingRoot = new BindingRoot<int[]>(gameObject);
@@ -15,10 +14,5 @@ public class ListSample : MonoBehaviour
         // 適用
         bindingRoot.Apply(Enumerable.Range(1, 100).ToArray());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
+
