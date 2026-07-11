@@ -7,6 +7,8 @@ UIToolKit 似てる操作方法で 既存プレハブUI に適用する検証的
 
 <img width="418" height="130" alt="image" src="https://github.com/user-attachments/assets/bda58f40-86c0-4000-83ea-a48a0fb87515" />
 
+※ Id が空き文字列の場合、GameObject の名前を使います。
+
 ■ Start() にて BindingRoot のインスタンス生成
 
 ```c#
