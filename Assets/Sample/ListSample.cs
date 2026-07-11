@@ -14,5 +14,11 @@ public class ListSample : MonoBehaviour
         // 適用
         bindingRoot.Apply(Enumerable.Range(1, 100).ToArray());
     }
+
+    public void OnClick()
+    {
+        var count = UnityEngine.Random.Range(25, 50);
+        bindingRoot.Apply(Enumerable.Range(1, count).ToArray());
+    }
 }
 
