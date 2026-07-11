@@ -172,7 +172,7 @@ BindingView　は ジェネリック <T> なので、ユーザ定義クラスも
 ゲームの場合、装備アイコンとかいろんな要素の ListItem でも対応できます
 
 ```C#
-protected override void Build(BindingRoot<int> root)
+protected override void Build(BindingRoot<EqDisplayData> root)
 {
     root.Bind("EQIcon").Sprite(v=> v.iconSprite);
     root.Bind("Level").Text(v=> v.levelString);
