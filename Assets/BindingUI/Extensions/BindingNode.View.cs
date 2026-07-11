@@ -38,7 +38,10 @@ namespace BindingUI
             {
                 return;
             }
-            bindingRoot = new BindingRoot<TDisplayData>(gameObject);
+
+            // GameObjectに IBindingNodeResolver アタッチされたら先に使う
+            IBindingNodeResolver resolver = BindingUICore.GetInterface<IBindingNodeResolver>(gameObject);
+            bindingRoot = new BindingRoot<TDisplayData>(resolver ?? new HierarchyBindingNodeResolver(gameObject));
             Build(bindingRoot);
             initialized = true;
         }
