@@ -111,3 +111,71 @@ private void OnValueChanged(float value)
 Start() に上記コードを書くだけで、状態を Apply すれば 複雑の分岐書く必要なくなります
 
 https://github.com/user-attachments/assets/b1d7c8e9-01ba-4210-8674-1a5ad4508699
+
+
+## ■ リスト( Scroll Rect 対応も可能 )
+
+https://github.com/user-attachments/assets/7001c67d-d4a4-4ffa-91b0-e77ca8e26e53
+
+BindingView という単位で Binding が実行されます
+
+例えば、Scroll Rect に Prefab を動的配置したい場合
+
+```c#
+// ListSample
+void Start()
+{
+    // state ( int[] ) を受け取る BindingRoot 生成
+    bindingRoot = new BindingRoot<int[]>(gameObject);
+
+    // Id を指定して Bind し、List() 操作登録 : v は int[] なのでそのまま返す
+    // 内部で自動的 [] の長さに沿ってアイテム数を調整してくれます
+    bindingRoot.Bind("ScrollView").List(v => v);
+}
+
+// ※ ボタンイベントは従来のuGUI と同じくインスペクターで指定してました
+public void OnClick()
+{
+    var count = UnityEngine.Random.Range(25, 50);
+    bindingRoot.Apply(Enumerable.Range(1, count).ToArray());
+}
+```
+
+・ScrollView に コンポーネント BindingId と BindingList を追加します
+
+<img width="405" height="168" alt="image" src="https://github.com/user-attachments/assets/cb3c1443-890c-418f-90c8-4b263783f41e" />
+
+ScrollRect には特にコード書く必要ありません
+
+・Prefab (Item 本体)
+
+サンプルでは Text だけを配置したプレハブ
+
+<img width="283" height="81" alt="image" src="https://github.com/user-attachments/assets/d434c67f-6f4a-4a0d-9f26-3ac7dd2fccdb" />
+
+Label には BindingId コンポーネントアタッチ
+
+```c#
+// ListItem には state(int) を受け取れるように BindingView<int> を継承
+public class ListItem : BindingView<int>
+{
+    protected override void Build(BindingRoot<int> root)
+    {
+        // ここの書き方も基本サンプルと同じように Bind して操作を記述する
+        root.Bind("Label").Text(v=> v.ToString());
+    }
+}
+```
+
+BindingView　は ジェネリック <T> なので、ユーザ定義クラスももちろん渡せます
+
+ゲームの場合、装備アイコンとかいろんな要素の ListItem でも対応できます
+
+```C#
+protected override void Build(BindingRoot<int> root)
+{
+    root.Bind("EQIcon").Sprite(v=> v.iconSprite);
+    root.Bind("Level").Text(v=> v.levelString);
+    // ... などなど
+}
+```
