@@ -1,0 +1,17 @@
+using System;
+using TMPro;
+
+namespace BindingUI
+{
+    public sealed class TMPTextValueBinding<TState> : TMPTextBinding<TState, string>
+    {
+        public TMPTextValueBinding(TextMeshProUGUI target, Func<TState, string> getter) : base(target, getter)
+        {
+        }
+
+        public override void Apply(TState state)
+        {
+            Target.text = Getter(state);
+        }
+    }
+}

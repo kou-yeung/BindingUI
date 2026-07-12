@@ -1,12 +1,13 @@
 using System;
-using UnityEngine.UI;
+using TMPro;
 
 namespace BindingUI
 {
-    public abstract class TextBinding<TState, TValue> : ComponentBinding<TState, Text, TValue>
+    public abstract class TMPTextBinding<TState, TValue> : ComponentBinding<TState, TextMeshProUGUI, TValue>
     {
-        public TextBinding(Text target, Func<TState, TValue> getter) : base(target, getter)
+        public TMPTextBinding(TextMeshProUGUI target, Func<TState, TValue> getter) : base(target, getter)
         {
+           
         }
     }
 }
