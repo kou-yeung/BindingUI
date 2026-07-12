@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 namespace BindingUI
 {
-    public abstract class TextBinding<TState, TValue> : ComponentBinding<TState, Text, TValue>
+    public sealed partial class BindingNode<TState>
     {
-        public TextBinding(Text target, Func<TState, TValue> getter) : base(target, getter)
+        public BindingNode<TState> Text(Func<TState, string> getter)
         {
+            Add(new TextValueBinding<TState>(Get<Text>(), getter));
+            return this;
         }
     }
 }

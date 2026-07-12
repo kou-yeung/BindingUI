@@ -1,18 +1,13 @@
 using System;
-using UnityEngine;
 
 namespace BindingUI
 {
-    public abstract class GameObjectBinding<TState, TValue> : IBinding<TState>
+    public sealed partial class BindingNode<TState>
     {
-        protected GameObject Target { get; }
-        protected Func<TState, TValue> Getter { get; }
-
-        protected GameObjectBinding(GameObject target, Func<TState, TValue> getter)
+        public BindingNode<TState> Visible(Func<TState, bool> getter)
         {
-            Target = target;
-            Getter = getter;
+            Add(new GameObjectVisibleBinding<TState>(GameObject, getter));
+            return this;
         }
-        public abstract void Apply(TState state);
     }
 }

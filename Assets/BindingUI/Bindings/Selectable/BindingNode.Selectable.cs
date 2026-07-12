@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 namespace BindingUI
 {
-    public abstract class SelectableBinding<TState, TValue> : ComponentBinding<TState, Selectable, TValue>
+    public sealed partial class BindingNode<TState>
     {
-        protected SelectableBinding(Selectable target, Func<TState, TValue> getter) : base(target, getter)
+        public BindingNode<TState> Interactable(Func<TState, bool> getter)
         {
+            Add(new SelectableInteractableBinding<TState>(Get<Selectable>(), getter));
+            return this;
         }
     }
 }

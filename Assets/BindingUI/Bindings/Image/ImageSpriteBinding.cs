@@ -15,13 +15,4 @@ namespace BindingUI
             Target.sprite = Getter(state);
         }
     }
-
-    public sealed partial class BindingNode<TState>
-    {
-        public BindingNode<TState> ImageSprite(Func<TState, Sprite> getter)
-        {
-            Add(new ImageSpriteBinding<TState>(Get<Image>(), getter));
-            return this;
-        }
-    }
 }

@@ -6,9 +6,9 @@ namespace BindingUI
 {
     public sealed partial class BindingNode<TState>
     {
-        public BindingNode<TState> ImageSprite(Func<TState, Sprite> getter)
+        public BindingNode<TState> Color(Func<TState, Color> getter)
         {
-            Add(new ImageSpriteBinding<TState>(Get<Image>(), getter));
+            Add(new MaskableGraphicColorBinding<TState>(Get<MaskableGraphic>(), getter));
             return this;
         }
     }

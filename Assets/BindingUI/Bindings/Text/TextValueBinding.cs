@@ -14,13 +14,4 @@ namespace BindingUI
             Target.text = Getter(state);
         }
     }
-
-    public sealed partial class BindingNode<TState>
-    {
-        public BindingNode<TState> Text(Func<TState, string> getter)
-        {
-            Add(new TextValueBinding<TState>(Get<Text>(), getter));
-            return this;
-        }
-    }
 }

@@ -19,10 +19,11 @@ public class Sample : MonoBehaviour
         bindingRoot = new(gameObject);
 
         bindingRoot.Bind("ValueImage")
-            .ImageColor(v => v.Color)
+            .Color(v => v.Color)
             .Visible(v => v.Visible);
-            
+
         bindingRoot.Bind("ValueText")
+            .Color (v => v.Color)
             .Text(v => v.ValueString);
 
         bindingRoot.Bind("BTN")
