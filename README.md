@@ -74,6 +74,10 @@ bindingRoot.Apply(state);
 
 ---
 
+# Install
+
+Use UPM : https://github.com/kou-yeung/BindingUI.git?path=Assets/BindingUI
+
 # Getting Started
 
 ## 1. Add BindingId
