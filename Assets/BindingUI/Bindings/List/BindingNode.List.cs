@@ -1,4 +1,4 @@
-using BindingUI.Core;
+using BindingUI.Helper;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +53,7 @@ namespace BindingUI
         {
             var instance = target.CreateItem();
 
-            var view = BindingUICore.GetInterface<IRenderable<TItem>>(instance);
+            var view = BindingUIHelper.GetInterface<IRenderable<TItem>>(instance);
 
             if (view is IInitializable initializable)
             {

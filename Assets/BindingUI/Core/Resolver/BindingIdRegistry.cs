@@ -1,4 +1,4 @@
-using BindingUI.Core;
+using BindingUI.Helper;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,7 +70,7 @@ namespace BindingUI
         internal void RefreshTargets()
         {
             var rootMarker =
-                BindingUICore.GetInterface<IBindingMarker>(
+                BindingUIHelper.GetInterface<IBindingMarker>(
                     gameObject);
 
             var foundTargets =
@@ -85,7 +85,7 @@ namespace BindingUI
             foreach (var target in foundTargets)
             {
                 var ownerMarker =
-                    BindingUICore
+                    BindingUIHelper
                         .GetInterfaceInParents<IBindingMarker>(
                             target.gameObject);
 

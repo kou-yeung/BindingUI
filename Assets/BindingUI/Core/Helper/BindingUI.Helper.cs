@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace BindingUI.Core
+namespace BindingUI.Helper
 {
-    public static class BindingUICore
+    public static class BindingUIHelper
     {
         public static TInterface GetInterface<TInterface>(GameObject gameObject) where TInterface : class
         {

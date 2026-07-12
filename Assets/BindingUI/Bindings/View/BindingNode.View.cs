@@ -1,4 +1,4 @@
-using BindingUI.Core;
+using BindingUI.Helper;
 using System;
 using UnityEngine;
 
@@ -40,7 +40,7 @@ namespace BindingUI
             }
 
             // GameObjectに IBindingNodeResolver アタッチされたら先に使う
-            IBindingNodeResolver resolver = BindingUICore.GetInterface<IBindingNodeResolver>(gameObject);
+            IBindingNodeResolver resolver = BindingUIHelper.GetInterface<IBindingNodeResolver>(gameObject);
             bindingRoot = new BindingRoot<TDisplayData>(resolver ?? new HierarchyBindingNodeResolver(gameObject));
             Build(bindingRoot);
             initialized = true;
@@ -60,7 +60,7 @@ namespace BindingUI
         public BindingNode<TState> View<TViewData>(Func<TState, TViewData> getter)
         {
 
-            var view = BindingUICore.GetInterface<IRenderable<TViewData>>(GameObject);
+            var view = BindingUIHelper.GetInterface<IRenderable<TViewData>>(GameObject);
 
             if (view == null)
             {

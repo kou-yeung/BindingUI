@@ -4,20 +4,14 @@ using UnityEngine.UI;
 
 namespace BindingUI
 {
-    public sealed class ImageColorBinding<TState> : IBinding<TState>
+    public sealed class ImageColorBinding<TState> : ImageBinding<TState, Color>
     {
-        readonly Image target;
-        readonly Func<TState, Color> getter;
-
-        public ImageColorBinding(Image target, Func<TState, Color> getter)
+        public ImageColorBinding(Image target, Func<TState, Color> getter) : base(target, getter)
         {
-            this.target = target;
-            this.getter = getter;
         }
-
-        public void Apply(TState state)
+        public override void Apply(TState state)
         {
-            target.color = getter(state);
+            Target.color = Getter(state);
         }
     }
 

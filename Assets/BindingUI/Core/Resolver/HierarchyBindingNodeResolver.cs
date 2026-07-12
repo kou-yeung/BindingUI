@@ -1,4 +1,4 @@
-using BindingUI.Core;
+using BindingUI.Helper;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,11 +29,11 @@ namespace BindingUI
         {
             Dictionary<string, BindingId> res = new Dictionary<string, BindingId>();
 
-            var rootMarker = BindingUICore.GetInterface<IBindingMarker>(root);
+            var rootMarker = BindingUIHelper.GetInterface<IBindingMarker>(root);
 
             foreach (var bindingId in root.GetComponentsInChildren<BindingId>(true))
             {
-                var ownerMarker = BindingUICore.GetInterfaceInParents<IBindingMarker>(bindingId.gameObject);
+                var ownerMarker = BindingUIHelper.GetInterfaceInParents<IBindingMarker>(bindingId.gameObject);
 
                 if (IsOwnedByRoot(rootMarker, ownerMarker) == false)
                 {
