@@ -15,5 +15,10 @@ namespace BindingUI
             Add(new CanvasGroupInteractableBinding<TState>(Get<CanvasGroup>(), getter));
             return this;
         }
+        public BindingNode<TState> CanvasGroupBlocksRaycasts(Func<TState, bool> getter)
+        {
+            Add(new CanvasGroupBlocksRaycastsBinding<TState>(Get<CanvasGroup>(), getter));
+            return this;
+        }
     }
 }
