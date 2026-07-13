@@ -220,3 +220,18 @@ It embraces Unity's existing workflow.
 Keep what Unity already does well.
 
 Only make UI updates declarative.
+
+## BindingUI.Boost
+
+To keep **BindingUI** simple and stable, experimental features and optional integrations are developed in **BindingUI.Boost**. [LINK](https://github.com/kou-yeung/BindingUI.Boost)
+
+BindingUI.Boost is the home for:
+
+- Experimental bindings
+- Third-party integrations (e.g. DOTween, R3, Addressables)
+- Editor tools
+- Utility extensions
+
+If you've created a useful binding or integration for another Unity package, we'd love to see your contribution.
+
+**Pull Requests are welcome!**
