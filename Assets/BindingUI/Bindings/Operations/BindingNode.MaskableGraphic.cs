@@ -11,5 +11,10 @@ namespace BindingUI
             Add(new MaskableGraphicColorBinding<TState>(Get<MaskableGraphic>(), getter));
             return this;
         }
+        public BindingNode<TState> Maskable(Func<TState, bool> getter)
+        {
+            Add(new MaskableGraphicMaskableBinding<TState>(Get<MaskableGraphic>(), getter));
+            return this;
+        }
     }
 }
