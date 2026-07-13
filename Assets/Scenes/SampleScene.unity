@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168b528c4ed5a854b9d308408ff0ed34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BindingUI.BindingId
-  id: Slider
+  id: 
 --- !u!1 &1139955802
 GameObject:
   m_ObjectHideFlags: 0

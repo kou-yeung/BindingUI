@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class ListSample : MonoBehaviour
 {
-    BindingRoot<int[]> bindingRoot;
+    BindingRoot<int[]> root;
 
     void Start()
     {
-        bindingRoot = new BindingRoot<int[]>(gameObject);
-        bindingRoot.Bind("ScrollView").List(v => v);
+        root = new BindingRoot<int[]>(gameObject);
+        root.Bind("ScrollView").List(v => v);
 
         // 適用
-        bindingRoot.Apply(Enumerable.Range(1, 100).ToArray());
+        root.Apply(Enumerable.Range(1, 100).ToArray());
     }
 
     public void OnClick()
     {
         var count = UnityEngine.Random.Range(25, 50);
-        bindingRoot.Apply(Enumerable.Range(1, count).ToArray());
+        root.Apply(Enumerable.Range(1, count).ToArray());
     }
 }
 

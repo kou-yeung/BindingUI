@@ -12,30 +12,30 @@ public class Sample : MonoBehaviour
         public Color Color;
     }
 
-    BindingRoot<SampleState> bindingRoot;
+    BindingRoot<SampleState> root;
 
     void Start()
     {
-        bindingRoot = new(gameObject);
+        root = new(gameObject);
 
-        bindingRoot.Bind("ValueImage")
+        root.Bind("ValueImage")
             .Color(v => v.Color)
             .Visible(v => v.Visible);
 
-        bindingRoot.Bind("ValueText")
+        root.Bind("ValueText")
             .Color (v => v.Color)
             .Text(v => v.ValueString);
 
-        bindingRoot.Bind("BTN")
+        root.Bind("BTN")
             .Interactable(v => v.Interactable);
 
-        var slider = bindingRoot.Bind("Slider").Get<Slider>();
+        var slider = root.Bind("Slider").Get<Slider>();
         slider.onValueChanged.AddListener(OnValueChanged);
         slider.value = 5;
     }
     private void OnValueChanged(float value)
     {
-        bindingRoot.Apply(new SampleState
+        root.Apply(new SampleState
         {
             ValueString = value.ToString(),
             Color = new Color(1, 1, 1, value / 10),
