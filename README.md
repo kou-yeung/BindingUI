@@ -221,7 +221,7 @@ Keep what Unity already does well.
 
 Only make UI updates declarative.
 
-## BindingUI.Boost
+# BindingUI.Boost
 
 To keep **BindingUI** simple and stable, experimental features and optional integrations are developed in **BindingUI.Boost**. [LINK](https://github.com/kou-yeung/BindingUI.Boost)
 
